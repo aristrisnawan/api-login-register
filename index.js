@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const authRoutes = require('./routes/auth')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -21,6 +22,9 @@ db.once('connected', () => {
 
 //Middleware
 app.use(express.json())
+
+// Use Authentication Routes
+app.use('/auth', authRoutes)
 
 // Start server
 app.listen(port, () => {
