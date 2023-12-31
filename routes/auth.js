@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const Mahasiswa = require('../models/mahasiswa')
 const jwt = require("jsonwebtoken");
 
 //SignUp
@@ -23,6 +24,16 @@ router.post("/signup", async (req, res) => {
     res.status(500).json({ error: "Internal server Error" });
   }
 });
+
+//Get Mahasiswa
+router.get('/mahasiswa', async(req,res) => {
+  try {
+    const data = await Mahasiswa.find().populate('userId','username')
+    res.status(200).json({message: 'Success get data mahasiswa', data})
+  } catch (error) {
+    res.status(500).json({message: 'Internal server error'})
+  }
+})
 
 //Login
 router.post("/login", async (req, res) => {
